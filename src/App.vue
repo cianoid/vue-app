@@ -1,6 +1,6 @@
 <script setup>
-let curDate = new Date();
-let dateString = curDate.toLocaleDateString();
+import { ref } from 'vue';
+const dateString = ref(new Date().toLocaleDateString());
 </script>
 
 <template>

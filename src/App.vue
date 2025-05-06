@@ -1,4 +1,4 @@
-<script setup>
+<script>
 import Button from "./components/Button.vue";
 </script>
 
@@ -10,7 +10,7 @@ import Button from "./components/Button.vue";
   </div>
 </template>
 
-<style scoped>
+<style>
 .main {
   background-color: var(--color-bg);
 }

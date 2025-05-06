@@ -1,7 +1,3 @@
-<script setup>
-import Button from "./components/Button.vue";
-</script>
-
 <template>
   <div id="app" class="main">
     <Button class="button-game-start">
@@ -10,9 +6,12 @@ import Button from "./components/Button.vue";
   </div>
 </template>
 
-<style>
+<script setup>
+import Button from "./components/Button.vue";
+</script>
+
+<style scoped>
 .main {
   background-color: var(--color-bg);
 }
-
 </style>

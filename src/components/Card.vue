@@ -1,13 +1,15 @@
 <script setup>
-const emit = defineEmits(["isFlipped", "statusChange"]);
+import {ref} from "vue";
 
-let isFlipped = false;
+const emit = defineEmits(["flipped", "statusChange"]);
+
+const flipped = ref(false);
 
 const turnCard = () => {
-  isFlipped = !isFlipped;
-  emit("isFlipped", isFlipped);
+  flipped.value = !flipped.value;
+  emit("flipped", flipped.value);
 
-  console.log(`turnCard ${isFlipped}`);
+  console.log(`turnCard ${flipped.value}`);
 };
 </script>
 

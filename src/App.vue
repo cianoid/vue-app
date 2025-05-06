@@ -3,8 +3,8 @@ import Button from "./components/Button.vue";
 import Score from "./components/Score.vue";
 import Card from "./components/Card.vue";
 
-function getTurned(isFlipped) {
-  console.log(`isFlipped = ${isFlipped}`);
+function getTurned(flipped) {
+  console.log(`flipped = ${flipped}`);
 }
 </script>
 
@@ -12,7 +12,7 @@ function getTurned(isFlipped) {
   <div id="app" class="main">
     <div class="menu">
       <div class="title">Запомни слово</div>
-      <Score score="38"/>
+      <Score :score="38"/>
     </div>
 
 
@@ -21,7 +21,7 @@ function getTurned(isFlipped) {
     </Button>
   </div>
 
-<Card @is-flipped="getTurned"/>
+<Card @flipped="getTurned"/>
 
 </template>
 

@@ -3,11 +3,11 @@ import Button from "./components/Button.vue";
 </script>
 
 <template>
-  <main class="main">
+  <div id="app" class="main">
     <Button class="button-game-start">
       Начать игру
     </Button>
-  </main>
+  </div>
 </template>
 
 <style scoped>

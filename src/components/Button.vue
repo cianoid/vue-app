@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <button class="button">
+  <button class="button" v-bind="$attrs">
     <slot />
   </button>
 </template>

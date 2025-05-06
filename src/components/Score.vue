@@ -1,12 +1,12 @@
 <script setup>
 import IconScore from "../icons/icon.score.vue";
-const {score = 100} = defineProps(["score"]);
+const props = defineProps({ score: { type: Number, default: 100 } });
 
 </script>
 
 <template>
 <div class="container">
-  {{score}} <IconScore/>
+  {{props.score}} <IconScore/>
 </div>
 </template>
 

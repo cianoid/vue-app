@@ -1,6 +1,14 @@
 <script setup>
-const emit = defineEmits(["turnAround", "statusChange"]);
+const emit = defineEmits(["isFlipped", "statusChange"]);
 
+let isFlipped = false;
+
+const turnCard = () => {
+  isFlipped = !isFlipped;
+  emit("isFlipped", isFlipped);
+
+  console.log(`turnCard ${isFlipped}`);
+};
 </script>
 
 <template>
@@ -8,7 +16,7 @@ const emit = defineEmits(["turnAround", "statusChange"]);
     <div class="card">
       <div class="card-number">06</div>
       <div class="card-text">слово</div>
-      <div class="card-action">Перевернуть</div>
+      <div class="card-action" @click="turnCard()">Перевернуть</div>
     </div>
   </div>
 </template>
@@ -67,6 +75,8 @@ color: #000;
   letter-spacing: 0.12em;
   color: #222;
   align-self: center;
+
+  cursor: pointer;
 }
 
 .card-text {

@@ -36,7 +36,7 @@ let cards = ref([
 ])
 
 let cardsData = computed(() => {
-  let data = {};
+  let data = [];
   for (let i = 0; i < cards.value.length; i++) {
     data[i] = cards.value[i];
     data[i].number = i > 9 ? `${i+1}` : `0${i+1}`;

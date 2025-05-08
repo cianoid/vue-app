@@ -27,7 +27,7 @@ const emit = defineEmits(["flipped", "statusChange"]);
 
 const flipped = ref(false);
 
-const turnCard = () => {
+function turnCard() {
   flipped.value = !flipped.value;
   emit("flipped", flipped.value);
 };

@@ -1,14 +1,18 @@
-<script setup>
-import { ref } from 'vue';
-const dateString = ref(new Date().toLocaleDateString());
-</script>
-
 <template>
-  <div id="app">
-    <h1>Vue basics</h1>
-    <p>Current date: {{ dateString }}</p>
+  <div id="app" class="main">
+    <Button class="button-game-start">
+      Начать игру
+    </Button>
   </div>
 </template>
 
+
+<script setup>
+import Button from "./components/Button.vue";
+</script>
+
 <style scoped>
+.main {
+  background-color: var(--color-bg);
+}
 </style>

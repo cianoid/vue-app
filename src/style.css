@@ -1,6 +1,19 @@
 :root {
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --color-bg: #F0F4F8;
+    --color-bg-button: #008BFE;
+    --color-bg-button-hover: #006FCB;
+    --color-button: #FFFFFF;
+    --font: "Roboto";
+}
+
+body {
+    font-family: var(--font), sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-bg);
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
 }

@@ -1,6 +1,13 @@
 <script setup>
 import {ref} from "vue";
 
+const {word = "-", translation = "-", state = "closed", status = "pending"} = defineProps({
+  word: String,
+  translation: String,
+  state: String,
+  status: String,
+});
+
 const emit = defineEmits(["flipped", "statusChange"]);
 
 const flipped = ref(false);
@@ -8,7 +15,6 @@ const flipped = ref(false);
 const turnCard = () => {
   flipped.value = !flipped.value;
   emit("flipped", flipped.value);
-
   console.log(`turnCard ${flipped.value}`);
 };
 </script>
@@ -17,7 +23,8 @@ const turnCard = () => {
   <div class="container">
     <div class="card">
       <div class="card-number">06</div>
-      <div class="card-text">слово</div>
+      <div class="card-word">{{word}}</div>
+      <div class="card-translation">{{translation}}</div>
       <div class="card-action" @click="turnCard()">Перевернуть</div>
     </div>
   </div>
@@ -55,10 +62,10 @@ const turnCard = () => {
   background-color: #fff;
   padding: 0 4px;
 
-font-weight: 400;
-font-size: 14px;
-text-align: center;
-color: #000;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: #000;
 
 }
 
@@ -81,7 +88,7 @@ color: #000;
   cursor: pointer;
 }
 
-.card-text {
+.card-word {
   font-weight: 400;
   font-size: 18px;
   text-align: center;

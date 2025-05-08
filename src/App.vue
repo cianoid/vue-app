@@ -1,4 +1,5 @@
 <script setup>
+import {ref} from "vue";
 import Button from "./components/Button.vue";
 import Score from "./components/Score.vue";
 import Card from "./components/Card.vue";
@@ -6,13 +7,21 @@ import Card from "./components/Card.vue";
 function getTurned(flipped) {
   console.log(`flipped = ${flipped}`);
 }
+
+let score = ref(100);
+let card = ref({
+  word: "слово",
+  translation: "word",
+  state: "closed",
+  status: "pending",
+})
 </script>
 
 <template>
   <div id="app" class="main">
     <div class="menu">
       <div class="title">Запомни слово</div>
-      <Score :score="38"/>
+      <Score :score="score"/>
     </div>
 
 
@@ -21,7 +30,7 @@ function getTurned(flipped) {
     </Button>
   </div>
 
-<Card @flipped="getTurned"/>
+<Card @flipped="getTurned" v-bind="card"/>
 
 </template>
 

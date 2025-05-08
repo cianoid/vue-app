@@ -4,8 +4,20 @@ import {ref} from "vue";
 const {word = "-", translation = "-", state = "closed", status = "pending"} = defineProps({
   word: String,
   translation: String,
-  state: String,
-  status: String,
+  state: {
+    type:String,
+    default: "closed",
+    validator(value) {
+      return value === "closed" || value === "opened"
+    },
+  },
+  status: {
+    type:String,
+    default: "pending",
+    validator(value) {
+      return value === "pending" || value === "success" || value === "fail"
+    },
+  }
 });
 
 const emit = defineEmits(["flipped", "statusChange"]);

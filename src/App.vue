@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Button from "./components/Button.vue";
 import Score from "./components/Score.vue";
 import Card from "./components/Card.vue";
@@ -8,41 +8,47 @@ function getTurned() {
 }
 
 let score = ref(100);
-let cards = ref([
-  {
-    word: "word",
-    translation: "слово",
-    state: "closed",
-    status: "pending",
-  },
-  {
-    word: "elephant",
-    translation: "слон",
-    state: "opened",
-    status: "pending",
-  },
-  {
-    word: "car",
-    translation: "автомобиль",
-    state: "opened",
-    status: "success",
-  },
-  {
-    word: "cablecar",
-    translation: "канатная дорога",
-    state: "opened",
-    status: "fail",
-  },
-])
+let cards = ref();
+let error = ref();
+let httpStatus = ref();
+const API = "http://localhost:8080/api/random-words"
+const errorMap = new Map([
+  [1004, "Указанный город не найден"]
+]);
 
-let cardsData = computed(() => {
-  let data = [];
-  for (let i = 0; i < cards.value.length; i++) {
-    data[i] = cards.value[i];
-    data[i].number = i > 9 ? `${i+1}` : `0${i+1}`;
+async function loadCards() {
+  const res = await fetch(API)
+  cards.value = await res.json();
+  httpStatus.value = res.status;
+
+  if (httpStatus.value !== 200) {
+    if (!cards.value) {
+      error.value = {
+        httpStatus: httpStatus.value,
+        errorCode: 1000000,
+        errorText: "Неизвестная ошибка",
+      };
+    } else {
+      error.value = {
+        httpStatus: httpStatus.value,
+        errorCode: cards.value.error.code,
+        errorText: errorMap.has(cards.value.error.code) ? errorMap.get(cards.value.error.code) : cards.value.error.message,
+      };
+    }
+  } else {
+    error.value = {};
+
+    for (let i = 0; i < cards.value.length; i++) {
+      cards.value[i].number = i > 9 ? `${i + 1}` : `0${i + 1}`;
+      cards.value[i].state = "closed";
+      cards.value[i].status = "pending";
+    }
   }
-  return data;
-})
+}
+
+onMounted(() => {
+  loadCards();
+});
 </script>
 
 <template>
@@ -57,8 +63,8 @@ let cardsData = computed(() => {
     </Button>
   </div>
 
-  <div class="cards">
-    <Card v-for="item in cardsData" :key="item.word" v-bind="item" @flipped="getTurned" />
+  <div v-if="cards" class="cards">
+    <Card v-for="item in cards" :key="item.word" v-bind="item" @flipped="getTurned"/>
   </div>
 
 </template>
@@ -67,7 +73,8 @@ let cardsData = computed(() => {
 .main {
   background-color: var(--color-bg);
 }
-.cards{
+
+.cards {
   display: flex;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;

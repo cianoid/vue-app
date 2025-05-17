@@ -37,25 +37,18 @@ async function loadCards() {
     }
   } else {
     error.value = {};
+
+    for (let i = 0; i < cards.value.length; i++) {
+      cards.value[i].number = i > 9 ? `${i + 1}` : `0${i + 1}`;
+      cards.value[i].state = "closed";
+      cards.value[i].status = "pending";
+    }
   }
 }
 
 onMounted(() => {
   loadCards();
 });
-
-let cardsData = computed(() => {
-  let data = [];
-  for (let i = 0; i < cards.value.length; i++) {
-    data[i] = cards.value[i];
-    data[i].number = i > 9 ? `${i+1}` : `0${i+1}`;
-    data[i].state = "closed";
-    data[i].status = "pending";
-  }
-  return data;
-})
-
-
 </script>
 
 <template>
@@ -71,7 +64,7 @@ let cardsData = computed(() => {
   </div>
 
   <div v-if="cards" class="cards">
-    <Card v-for="item in cardsData" :key="item.word" v-bind="item" @flipped="getTurned" />
+    <Card v-for="item in cards" :key="item.word" v-bind="item" @flipped="getTurned"/>
   </div>
 
 </template>
@@ -80,7 +73,8 @@ let cardsData = computed(() => {
 .main {
   background-color: var(--color-bg);
 }
-.cards{
+
+.cards {
   display: flex;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
